@@ -1,0 +1,40 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head><script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script> <meta http-equiv="content-type" content="text/html; charset=utf-8"> <title>JsSynth</title> </head> 
+
+<body> 
+    <button class="play">Play Oscillator</button>
+    <select class="typeWave">
+        <option value="sine">Sine</option>
+        <option value="square">Square</option>
+        <option value="sawtooth">Sawtooth</option>
+        <option value="triangle">Triangle</option>
+    </select>
+    <input type="number" class="freqAmount">
+    <button class="stopSynth">Stop</button>
+    </body> 
+
+<script>
+    var ac= new AudioContext();
+   var osc = null;
+    $(".play").click(function(){
+         osc = ac.createOscillator();
+        osc.type = $(".typeWave").val();
+        var freq = 440+ parseInt($(".freqAmount").val(),10)
+        osc.frequency.setValueAtTime(freq,0);
+         osc.connect(ac.destination);
+    osc.start();
+    });
+    $(".stopSynth").click(function(){
+        
+        osc.stop();
+        osc.disconnect();
+    })
+   
+</script>
+    
+
+</html>
